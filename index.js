@@ -1,7 +1,11 @@
 // Fungsi untuk mendapatkan nilai random antara min dan max
+const myArray = [];
 function getRandomInt(min, max) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
+	for (let i = 0; i < 100; i++)
+		myArray.push(Math.floor(Math.random() * (max - min + 1)) + min);
 }
+getRandomInt(1, 50);
+// console.log(myArray);
 
 // Pecahlah menjadi 2 array berdasarkan nilainya, yakni array bernilai genap dan ganjil
 const evenArray = [];
@@ -12,17 +16,19 @@ function splitRandomInt(length) {
 	// ----------------> (batas panjang array random)
 	for (let i = 0; i < length; i++) {
 		if (i % 2 === 0) {
-			evenArray.push(getRandomInt(1, 25) * 2);
-			// -----------------------> min, max x 2 (pasti genap)
+			evenArray.push(myArray[i]);
+			// ---------> (myArray[index_genap])
 		} else {
-			oddArray.push(getRandomInt(1, 25) * 2 - 1);
-			// ----------------------> min, max x 2 - 1 (pasti ganjil)
+			oddArray.push(myArray[i]);
+			// ---------> (myArray[index_ganjil])
 		}
 	}
 }
-splitRandomInt(100);
+splitRandomInt(myArray.length);
 console.log(evenArray);
+// console.log(evenArray.length);
 console.log(oddArray);
+// console.log(oddArray.length);
 
 // Fungsi untuk mencari nilai minimum pada array
 function min(array) {
@@ -73,30 +79,46 @@ function average(array) {
 console.log(average(evenArray));
 console.log(average(oddArray));
 
+console.log(
+	"-----------------------------------------------------------------------------"
+);
+
 // Perbandingan ------------------------------------------------------------------------------------------------------
 
-/*
-// Perbandingan nilai minimum
+// Perbandingan lebih besar pada nilai minimum
 const minCompare =
-	minEvenArray < minOddArray
-		? `Genap: ${minEvenArray}`
-		: `Ganjil: ${minOddArray}`;
+	min(evenArray) < min(oddArray)
+		? `Nilai minimum lebih kecil genap: ${min(evenArray)}`
+		: `Nilai minimum lebih kecil ganjil: ${min(oddArray)}`;
+console.log(minCompare);
 
-// Perbandingan nilai maximum
+// Perbandingan lebih besar pada nilai maximum
 const maxCompare =
-	maxEvenArray > maxOddArray
-		? `Genap: ${maxEvenArray}`
-		: `Ganjil: ${maxOddArray}`;
+	max(evenArray) > max(oddArray)
+		? `Nilai maximum lebih besar genap: ${max(evenArray)}`
+		: `Nilai maximum lebih besar ganjil: ${max(oddArray)}`;
+console.log(maxCompare);
 
-// Perbandingan nilai total
-const totalCompare =
-	totalEvenArray > totalOddArray
-		? `Genap: ${totalEvenArray}`
-		: `Ganji: ${totalOddArray}`;
+// // Perbandingan nilai total
+const totalCompare = () => {
+	if (total(evenArray) > total(oddArray)) {
+		return `Nilai total lebih besar genap: ${total(evenArray)}`;
+	} else if (total(oddArray) > total(evenArray)) {
+		return `Nilai total lebih besar ganjil: ${total(oddArray)}`;
+	} else {
+		return `Nilai total sama besar`;
+	}
+};
+console.log(totalCompare());
 
-// Perbandingan nilai rata-rata
-const avrCompare =
-	averageEvenValue > averageOddValue
-		? `Genap: ${averageEvenValue}`
-		: `Ganjil: ${averageOddValue}`;
-*/
+// // Perbandingan nilai rata-rata
+const avrCompare = () => {
+	if (average(evenArray) > average(oddArray)) {
+		return `Nilai rata-rata lebih besar genap: ${average(evenArray)}`;
+	} else if (average(oddArray) > average(evenArray)) {
+		return `Nilai rata-rata lebih besar ganjil: ${average(oddArray)}`;
+	} else {
+		return `Nilai rata-rata sama besar`;
+	}
+};
+console.log(avrCompare());
