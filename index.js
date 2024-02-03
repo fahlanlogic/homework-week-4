@@ -1,64 +1,102 @@
-// Buatlah 100 nilai random (1 sampai 50) pada 1 array
-const myArray = [];
-for (i = 0; i < 100; i++) {
-  myArray.push(Math.floor(Math.random() * 51));
+// Fungsi untuk mendapatkan nilai random antara min dan max
+function getRandomInt(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Pecahlah menjadi 2 array berdasarkan indexnya, yakni array pada index genap dan array pada index ganjil
+// Pecahlah menjadi 2 array berdasarkan nilainya, yakni array bernilai genap dan ganjil
 const evenArray = [];
 const oddArray = [];
 
-// Pastikan masing-masing bilangan length-nya 50
-while (evenArray.length < 50) {
-	let randomValue = Math.floor(Math.random() * 51);
-	if (randomValue % 2 === 0) {
-		evenArray.push(randomValue);
+// Fungsi untuk mencari array genap dan ganjil
+function splitRandomInt(length) {
+	// ----------------> (batas panjang array random)
+	for (let i = 0; i < length; i++) {
+		if (i % 2 === 0) {
+			evenArray.push(getRandomInt(1, 25) * 2);
+			// -----------------------> min, max x 2 (pasti genap)
+		} else {
+			oddArray.push(getRandomInt(1, 25) * 2 - 1);
+			// ----------------------> min, max x 2 - 1 (pasti ganjil)
+		}
 	}
 }
+splitRandomInt(100);
+console.log(evenArray);
+console.log(oddArray);
 
-while (oddArray.length < 50) {
-	let randomValue = Math.floor(Math.random() * 51);
-	if (randomValue % 2 !== 0) {
-		oddArray.push(randomValue);
+// Fungsi untuk mencari nilai minimum pada array
+function min(array) {
+	// -----> (array yg mau dicari nilai minimumnya)
+	let minimum = array[0];
+	for (let i = 0; i < array.length; i++) {
+		if (array[i] < minimum) {
+			minimum = array[i];
+		}
 	}
+	return minimum;
 }
+console.log(min(evenArray));
+console.log(min(oddArray));
 
-// Mencari bilangan Min & Max pada array genap/evenArray
-let minEvenArray = evenArray[0];
-let maxEvenArray = evenArray[0];
-for (i = 0; i < evenArray.length; i++) {
-	if (evenArray[i] < minEvenArray) {
-		minEvenArray = evenArray[i];
-	} else if (evenArray[i] > maxEvenArray) {
-		maxEvenArray = evenArray[i];
+// Fungsi untuk mencari nilai maksimum pada array
+function max(array) {
+	// -----> (array yg mau dicari nilai maksimumnya)
+	let maksimum = array[0];
+	for (let i = 0; i < array.length; i++) {
+		if (array[i] > maksimum) {
+			maksimum = array[i];
+		}
 	}
+	return maksimum;
 }
+console.log(max(evenArray));
+console.log(max(oddArray));
 
-// Mencari bilangan Min & Max pada array ganjil/oddArray
-let minOddArray = oddArray[0];
-let maxOddArray = oddArray[0];
-for (let i = 0; i < oddArray.length; i++) {
-	if (oddArray[i] < minOddArray) {
-		minOddArray = oddArray[i];
-	} else if (oddArray[i] > maxOddArray) {
-		maxOddArray = oddArray[i];
+// Fungsi menghitung Total pada array
+function total(array) {
+	// -------> (array yg mau dihitung totalnya)
+	let totalArray = 0;
+	for (i = 0; i < array.length; i++) {
+		totalArray += array[i];
 	}
+	return totalArray;
 }
+console.log(total(evenArray));
+console.log(total(oddArray));
 
-// Menghitung Total pada array genap/evenArray
-let totalEvenArray = 0;
-for (i = 0; i < evenArray.length; i++) {
-	totalEvenArray += evenArray[i];
+// Fungsi menghitung Rata-rata pada array
+function average(array) {
+	// ---------> (array yg mau dicari rata-ratanya)
+	let averageEvenValue = Math.floor(total(array) / array.length);
+	return averageEvenValue;
 }
+console.log(average(evenArray));
+console.log(average(oddArray));
 
-// Menghitung Total pada array ganjil/oddArray
-let totalOddArray = 0;
-for (i = 0; i < oddArray.length; i++) {
-	totalOddArray += oddArray[i];
-}
+// Perbandingan ------------------------------------------------------------------------------------------------------
 
-// Menghitung Rata-rata pada array ganjil/oddArray
-let averageEvenValue = Math.floor(totalEvenArray / evenArray.length);
+/*
+// Perbandingan nilai minimum
+const minCompare =
+	minEvenArray < minOddArray
+		? `Genap: ${minEvenArray}`
+		: `Ganjil: ${minOddArray}`;
 
-// Menghitung Rata-rata pada array ganjil/oddArray
-let averageOddValue = Math.floor(totalOddArray / oddArray.length);
+// Perbandingan nilai maximum
+const maxCompare =
+	maxEvenArray > maxOddArray
+		? `Genap: ${maxEvenArray}`
+		: `Ganjil: ${maxOddArray}`;
+
+// Perbandingan nilai total
+const totalCompare =
+	totalEvenArray > totalOddArray
+		? `Genap: ${totalEvenArray}`
+		: `Ganji: ${totalOddArray}`;
+
+// Perbandingan nilai rata-rata
+const avrCompare =
+	averageEvenValue > averageOddValue
+		? `Genap: ${averageEvenValue}`
+		: `Ganjil: ${averageOddValue}`;
+*/
